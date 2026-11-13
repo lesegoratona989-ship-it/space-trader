@@ -40,3 +40,12 @@ The point value and all costs must be verified for the exact Space Markets symbo
 
 ## Privacy
 App data is stored in localStorage on the device/browser. Export a JSON backup regularly. Do not store broker passwords, API keys or banking information in this app.
+
+
+## V1.1 — Independent public market-data feed
+- Adds a browser-based SignalR connection to biquote's public market-data API.
+- Looks up XAUUSD, NAS100, US30 and GER30 equivalents; unresolved symbols are shown as unavailable rather than guessed.
+- Displays provider source, quote timestamp, bid/ask where available, and LIVE / DELAYED / CLOSED status.
+- Keeps manual quote entry, signal ideas, R500 risk calculator, journal and exports.
+- This is not a Space Markets account connection. Prices are independent reference quotes and may differ from Space Markets CFD pricing, spread and execution.
+- Requires internet access; the live feed cannot work offline.

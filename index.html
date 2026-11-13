@@ -29,7 +29,7 @@
           <div><div class="eyebrow" id="todayLabel">TRADING DESK</div><h1>Market overview</h1><p class="muted">Your plan. Your risk. Your decisions.</p></div>
           <div class="capital-chip"><span>PLANNED CAPITAL</span><strong id="capitalDisplay">R500.00</strong></div>
         </div>
-        <div class="notice warning"><span class="notice-icon">!</span><div><strong>Broker feed not connected</strong><p>Quotes are not live in this build. Enter verified prices from your Space Markets MT5 account or TradingView and label their source.</p></div></div>
+        <div class="feed-panel panel"><div class="row-between"><div><span class="eyebrow">PUBLIC MARKET DATA</span><h3 id="feedTitle">Connecting market feed…</h3></div><span class="tag amber" id="feedBadge">CONNECTING</span></div><p class="muted" id="feedMessage">Connecting to an independent public MT5 market-data source. This is not your Space Markets account feed.</p><div class="feed-meta" id="feedMeta">Provider: biquote · No API key required</div><button class="secondary-btn full" id="feedReconnect" type="button">Reconnect market feed</button></div>
         <div class="section-heading"><div><span class="eyebrow">WATCHLIST</span><h2>Markets</h2></div><button class="text-btn" data-go="watchlist">Manage ↗</button></div>
         <div class="market-grid" id="marketCards"></div>
         <div class="section-heading"><div><span class="eyebrow">YOUR PROCESS</span><h2>Pre-trade checklist</h2></div><span class="small-tag">5 checks</span></div>
@@ -50,7 +50,7 @@
       </section>
 
       <section class="page" id="page-watchlist">
-        <div class="page-head"><span class="eyebrow">MARKET MONITOR</span><h1>Watchlist</h1><p class="muted">Add quotes manually until a verified MT5 data bridge is configured.</p></div>
+        <div class="page-head"><span class="eyebrow">MARKET MONITOR</span><h1>Watchlist</h1><p class="muted">Independent public quotes update automatically when the provider is available. Manual quotes remain available.</p></div>
         <div class="toolbar"><select id="quoteSymbol"><option>XAUUSD</option><option>NAS100</option><option>US30</option><option>GER30</option></select><button class="primary-btn" id="editQuoteBtn">Update quote</button></div>
         <div id="watchRows" class="watch-list"></div>
         <div class="panel"><h3>External chart references</h3><p class="muted">These are independent chart references, not guaranteed to match Space Markets CFD prices or symbol suffixes.</p><div class="link-list">
@@ -133,7 +133,7 @@
           <label>MT5 symbol mapping<textarea id="symbolMap" rows="4" placeholder="Example: XAUUSD = XAUUSD.a&#10;NAS100 = USTEC&#10;US30 = US30.cash&#10;GER30 = GER40"></textarea></label>
           <button class="primary-btn full" id="saveSettings" type="button">Save settings</button>
         </div>
-        <div class="panel compact-panel"><h3>Connection status</h3><div class="row-between"><span class="muted">Space Markets MT5</span><span class="tag amber">Not connected</span></div><p class="muted">No official client-facing API credentials or MT5 bridge were supplied. This app does not request or store your MT5 password. Live integration requires a secure read-only MT5 bridge hosted on a Windows PC/VPS or an officially supported broker API.</p></div>
+        <div class="panel compact-panel"><h3>Market data connection</h3><div class="row-between"><span class="muted">Independent public feed</span><span class="tag amber" id="settingsFeedBadge">Connecting</span></div><p class="muted" id="settingsFeedText">biquote public data feed. Quotes are independent reference prices, not Space Markets account quotes. They may differ from your broker spread, CFD symbol and execution price.</p><div class="feed-meta" id="settingsFeedMeta">Waiting for provider response…</div><button class="secondary-btn full" id="settingsReconnect" type="button">Reconnect feed</button></div>
         <div class="panel compact-panel"><h3>Data & privacy</h3><p class="muted">Journal, settings, manual quotes and signal ideas stay in this browser's local storage. Export a backup regularly. Clearing browser data may erase records. Do not enter broker passwords, API secrets or banking credentials here.</p><button class="danger-btn full" id="clearData">Delete all local app data</button></div>
         <div class="panel compact-panel"><h3>Official references</h3><div class="link-list"><a href="https://www.spacemarkets.io/" target="_blank" rel="noopener">Space Markets official website ↗</a><a href="https://www.metatrader5.com/en/terminal/help/trading/market_watch" target="_blank" rel="noopener">MetaTrader 5 Market Watch help ↗</a><a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView ↗</a></div></div>
       </section>
@@ -164,6 +164,7 @@
 
   <dialog id="confirmDialog"><form method="dialog" class="dialog-card"><h2>Delete local data?</h2><p class="muted">This removes quotes, signals, journal entries and settings from this browser. Export a backup first.</p><div class="button-row"><button class="secondary-btn" value="cancel">Cancel</button><button class="danger-btn" id="confirmClear" value="ok">Delete everything</button></div></form></dialog>
   <div id="toast" role="status" aria-live="polite"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
