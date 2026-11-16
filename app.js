@@ -59,13 +59,27 @@ function save() {
   }));
 }
 
-async function getJSON(url) {
-  const response = await fetch(url, {
-    cache: "no-store",
-    headers: { Accept: "application/json" }
+async function discoverSymbols() {
+  // Use the full MT5 catalogue, not /active.
+  const catalogue = await getJSON(API + "/symbols?source=MT5");
+
+  const entries = Array.isArray(catalogue)
+    ? catalogue
+    : Array.isArray(catalogue.symbols)
+      ? catalogue.symbols
+      : Array.isArray(catalogue.items)
+        ? catalogue.items
+        : [];
+
+  const names = new Set(entries.map(item =>
+    String(typeof item === "string" ? item : item.name || "")
+      .trim().toUpperCase()
+  ).filter(Boolean));
+
+  SYMBOLS.forEach(symbol => {
+    // Exact matches only. Never substitute a proxy.
+    state.symbols[symbol] = names.has(symbol) ? symbol : null;
   });
-  if (!response.ok) throw new Error("Provider HTTP " + response.status);
-  return response.json();
 }
 
 function quality(q) {
