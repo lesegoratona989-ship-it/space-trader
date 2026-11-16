@@ -94,19 +94,7 @@ function quality(q) {
   return ["STALE — NO TRADE", "red"];
 }
 
-async function discoverSymbols() {
-  const active = await getJSON(API + "/active");
-  const names = new Set(
-    Array.isArray(active)
-      ? active.map(x => String(x.name || "").toUpperCase())
-      : []
-  );
 
-  SYMBOLS.forEach(s => {
-    // Exact matches only. Never substitute an index or CFD proxy.
-    state.symbols[s] = names.has(s) ? s : null;
-  });
-}
 
 async function getQuote(symbol) {
   return getJSON(API + "/" + encodeURIComponent(symbol) + "?allowStale=true");
