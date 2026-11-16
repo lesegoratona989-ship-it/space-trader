@@ -331,7 +331,7 @@ async function scan() {
     }
 
     renderMarkets();
-    renderSignals():
+    renderSignals();
 
     const now = new Date().toLocaleString("en-ZA");
     if ($("feedTitle")) $("feedTitle").textContent = "Public reference feed";
