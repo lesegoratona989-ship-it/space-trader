@@ -59,6 +59,15 @@ function save() {
   }));
 }
 
+async function getJSON(url) {
+  const response = await fetch(url, { cache: "no-store" });
+
+  if (!response.ok) {
+    throw new Error("Market data request failed: HTTP " + response.status);
+  }
+
+  return response.json();
+}
 async function discoverSymbols() {
   state.symbols.XAUUSD = "XAUUSD";
   state.symbols.NAS100 = "USTEC";
